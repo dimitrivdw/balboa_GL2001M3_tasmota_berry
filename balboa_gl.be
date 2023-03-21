@@ -11,8 +11,8 @@ class BalboaGL : Driver
         self.ser = serial(34,13,115200,serial.SERIAL_8N1)
         self.heatingElementEnabled = false
         self.buffer = []
-        self.currentSetpoint = -1.0
-        self.currentTemperature = 0
+        self.currentSetpoint = 5.0
+        self.currentTemperature = 0.0
     end
 
     def enable_heating_element(cmd, idx, payload, payload_json)
@@ -30,8 +30,8 @@ class BalboaGL : Driver
                     temp += (read[2] - 48) * 10
                     temp += (read[3] - 48)
                     temp += (read[4] - 48) * 0.1
+                    self.currentTemperature = temp;
                 end
-                self.currentTemperature = temp;
             end
             #self.buffer.push(read)
         end
